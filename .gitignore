@@ -1,6 +1,6 @@
-.o
+*.o
 .vscode/
 .vscode
-.out
-.so
-.a
+*.out
+*.so
+*.a
