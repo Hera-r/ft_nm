@@ -1,7 +1,7 @@
 SRC_DIR    = src
 LIBFT_DIR  = libft
 
-SRCS    = main.c
+SRCS    = main.c ar_parser.c elf_parser.c format_utils.c
 OBJS    = $(SRCS:%.c=$(SRC_DIR)/%.o)
 
 NAME    = ft_nm
