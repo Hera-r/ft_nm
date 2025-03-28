@@ -85,8 +85,11 @@ int main(int argc, char *argv[]) {
 
 /* 
 ******************** TO DO ************************
-- Faire tri
-- voir aussi comment gerer l'affichage de chaque fichier .o .a .so ... selon le 'e_type' dans Ehdr
+- voir aussi comment gerer l'affichage de chaque fichier .o .a .so ... selon le 'e_type' dans Ehdr (
+	surtout le cas des addresse en hexa decimal quand ils sont a zero, dans certains cas ils sont afficher ou pas
+)
+- Stocker les symbole dans la struct t_symbols (avant faire le tri)
+- Faire Tri
 
 */
 
