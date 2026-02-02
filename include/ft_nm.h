@@ -3,43 +3,38 @@
 
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <ar.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <elf.h>
 #include <sys/stat.h>
-#include <libft.h> // Assure-toi que ce chemin est bon dans ton projet
+#include "../libft/libft.h"
 
 
-typedef struct s_symbols
+typedef struct s_symbol
 {
-	uint64_t	st_value;
-	char		symbol_type;
-	char		*symbol_name;
-}				t_symbols;
+	char		*name;
+	char		type;
+	uint64_t	value;
+	int			is_undefined;
+}	t_symbol;
 
-// ─────────────────────────────
-// Fonctions ELF
-// ─────────────────────────────
 
-char			get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr_tab);
 int				check_elf_magic(Elf64_Ehdr *ehdr);
+int				handle_elf_file(void *file_mem, char *filename);
+char			get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr_tab);
 Elf64_Shdr		*find_symtab(Elf64_Ehdr *ehdr, Elf64_Shdr *section_header);
-
-// ─────────────────────────────
-// Fonctions format/affichage
-// ─────────────────────────────
-void			ft_print_hexa(unsigned int nb);
-void			ft_hexadecimal(unsigned int nb);
-void			ft_nm_error(const char *filename, const char *message);
-int				ft_nb_numb(unsigned int nb);
-char			*formated_ar_name(const char *ar_name);
+void			display_symbols(t_symbol *symbols_list, int count, Elf64_Ehdr *ehdr);
 
 
-// ─────────────────────────────
-// Fonction principale archive
-// ─────────────────────────────
+int					ft_nb_numb(unsigned long long nb);
+void				ft_hexadecimal(unsigned long long nb);
+void				ft_print_hexa(unsigned long long nb);
+char				*formated_ar_name(const char *ar_name);
+void				ft_nm_error(const char *filename, const char *message);
+
 
 int				handle_archive(void *ptr, char *end, const char *filename);
 
