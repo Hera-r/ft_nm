@@ -1,76 +1,70 @@
 #include "../include/ft_nm.h"
 
-int	ft_nb_numb(unsigned int nb)
+int	ft_nb_numb(unsigned long long nb)
 {
-	int	n = 0;
+	int	n;
 
+	n = 0;
 	if (nb == 0)
-		return 0;
-
-	while (nb >= 16)
+		return (1);
+	while (nb > 0)
 	{
 		nb = nb / 16;
 		n++;
 	}
-	return (n == 0) ? 1 : n;
+	return (n);
 }
 
-
-void	ft_hexadecimal(unsigned int nb)
+void	ft_hexadecimal(unsigned long long nb)
 {
 	char	*hexa;
 
-	if (nb == 0)
+	hexa = "0123456789abcdef";
+	if (nb >= 16)
 	{
-		write(1, "0", 1);
+		ft_hexadecimal(nb / 16);
+		ft_hexadecimal(nb % 16);
 	}
 	else
-	{
-		hexa = "0123456789abcdef";
-
-		if (nb >= 16)
-		{
-			ft_hexadecimal(nb / 16);
-			ft_hexadecimal(nb % 16);
-		}
-		else
-			write(1, &hexa[nb], 1);
-	}
+		ft_putchar_fd(hexa[nb], STDOUT_FILENO);
 }
 
+void	ft_print_hexa(unsigned long long nb)
+{
+	int				nb_num;
+	int				i;
+	unsigned long long	tmp;
 
-void	ft_print_hexa(unsigned int nb) {
-	int nb_num = ft_nb_numb(nb);
-	
-	for (int i = 0; i < (15 - nb_num); i++)
+	tmp = nb;
+	nb_num = ft_nb_numb(tmp);
+	i = -1;
+	while (++i < (16 - nb_num))
 		ft_putchar_fd('0', STDOUT_FILENO);
 	ft_hexadecimal(nb);
 }
 
-
-char *formated_ar_name(const char *ar_name)  // j'ai malloc dans cette fonction
+char	*formated_ar_name(const char *ar_name)
 {
-    char raw_name[17];
+	char	raw_name[17];
+	char	*result;
+	int		i;
 
-    ft_memcpy(raw_name, ar_name, 16);
-    raw_name[16] = '\0';
-
-    for (int i = 15; i >= 0; i--) {
-        if (raw_name[i] == ' ' || raw_name[i] == '/' || raw_name[i] == '\0') {
-            raw_name[i] = '\0';
-        } else
-            break;
-    }
-
-    char *result = malloc(17);
-    if (!result)
-        return NULL;
-
-    ft_strlcpy(result, raw_name, 17);
-
-    return result;
+	ft_memcpy(raw_name, ar_name, 16);
+	raw_name[16] = '\0';
+	i = 16;
+	while (--i >= 0)
+	{
+		if (raw_name[i] == ' ' || raw_name[i] == '/' || raw_name[i] == '\0')
+			raw_name[i] = '\0';
+		else
+			break ;
+	}
+	result = malloc(17);
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, raw_name, 17);
+	return (result);
 }
-
 
 void	ft_nm_error(const char *filename, const char *message)
 {
