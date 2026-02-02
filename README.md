@@ -1,6 +1,6 @@
 # ft_nm
 
-`ft_nm` is a custom implementation of the Unix `nm` command, developed in C. It is a **post-Common Core project at École 42 Paris**. 
+`ft_nm` is a custom implementation of the Unix `nm` command, developed in C. It is a **post-Common Core project at 42 Paris**. 
 This program displays the symbol table of object files, executables, and static libraries, focusing on ELF64 file structure analysis and memory mapping.
 
 ## Features
